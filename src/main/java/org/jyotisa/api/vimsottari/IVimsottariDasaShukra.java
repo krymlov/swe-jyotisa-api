@@ -25,6 +25,6 @@ public interface IVimsottariDasaShukra extends IVimsottariDasa {
 
     @Override
     default double length() {
-        return 10;
+        return 20;
     }
 }
