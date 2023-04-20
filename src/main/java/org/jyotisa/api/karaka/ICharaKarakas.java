@@ -23,5 +23,5 @@ public interface ICharaKarakas {
     /**
      * @return ordered list of chara karakas
      */
-    List<IGrahaEntity> getEntities();
+    List<IGrahaEntity> entities();
 }

@@ -74,7 +74,7 @@ public interface IVarga extends IKundaliSequence<IVarga> {
     String D108_CD = "D108";
     String D144_CD = "D144";
 
-    static double getDvadasamsaLongitude(final double longitude) {
+    static double dvadasamsaLongitude(final double longitude) {
         return fix360(rasiFid0(longitude) * 30 + rasiDegree(longitude) * 12);
     }
 }

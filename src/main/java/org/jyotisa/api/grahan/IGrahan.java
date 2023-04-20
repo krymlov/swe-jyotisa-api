@@ -19,8 +19,8 @@ public interface IGrahan extends Serializable {
      *         Eastern longitude and northern latitude is given by positive values, western longitude 
      *         and southern latitude by negative values.
      */
-    double[] getCoordinates();
+    double[] coordinates();
     
-    double[] getOccasions();
-    double[] getAttributes();
+    double[] occasions();
+    double[] attributes();
 }
