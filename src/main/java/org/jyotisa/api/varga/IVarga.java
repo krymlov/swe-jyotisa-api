@@ -11,6 +11,7 @@ import org.jyotisa.api.rasi.IRasi;
 import static org.jyotisa.api.rasi.IRasi.rasiDegree;
 import static org.jyotisa.api.rasi.IRasi.rasiFid0;
 import static org.swisseph.api.ISweConstants.CHAKRA_LENGTH;
+import static org.swisseph.api.ISweConstants.RASI_LENGTH;
 import static org.swisseph.utils.IModuloUtils.fix360;
 
 /**
@@ -46,8 +47,20 @@ public interface IVarga extends IKundaliSequence<IVarga> {
      * and you should not use it as a real longitude
      */
     default double virtualDegree(double longitudeInD1) {
-        longitudeInD1 *= fid();
-        return fix360(longitudeInD1);
+        if (1 == fid()) return longitudeInD1;
+        else {
+            longitudeInD1 *= fid();
+            return fix360(longitudeInD1);
+        }
+    }
+
+    /**
+     * @return longitude in a whole varga chakra
+     */
+    default double chakraLongitude(final double longitudeInD1) {
+        if (1 == fid()) return longitudeInD1;
+        return fix360(((rasi(longitudeInD1).fid() - 1) * RASI_LENGTH)
+                + rasiLongitude(longitudeInD1));
     }
 
     String D01_CD = "D1";
