@@ -7,12 +7,11 @@
 package org.jyotisa.api.naksatra;
 
 import org.jyotisa.api.IKundaliSequenceEntity;
-import org.jyotisa.api.graha.IGraha;
+import org.jyotisa.api.rasi.IRasi;
 
 /**
  * @author Yura Krymlov
  * @version 1.0, 2020-12
  */
 public interface INaksatraEntity extends IKundaliSequenceEntity<INaksatra> {
-    IGraha graha();
 }
