@@ -63,4 +63,5 @@ public interface IKundaliFields extends Serializable {
     double bhavaLagna();
     double ghatiLagna();
     double horaLagna();
+    double vighatiLagna();
 }
