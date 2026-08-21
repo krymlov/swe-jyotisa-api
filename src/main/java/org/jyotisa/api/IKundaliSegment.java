@@ -20,7 +20,7 @@ public interface IKundaliSegment extends IKundaliEnum {
     double length();
 
     default ISweSegment segment() {
-        if (0 == fid() && NIL_CD.equals(code())) {
+        if (isNil()) {
             return ZERO_SEGMENT;
         }
 
