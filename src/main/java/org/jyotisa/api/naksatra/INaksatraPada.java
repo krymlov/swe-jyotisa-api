@@ -30,7 +30,8 @@ public interface INaksatraPada extends IKundaliSequence<INaksatraPada> {
     @Override
     default int fid() {
         final INaksatra naksatra = naksatra();
-        if (null == naksatra) return NIL_FID;
+        // the null check predates NilNaksatra; both answers still mean "no naksatra"
+        if (null == naksatra || naksatra.isNil()) return NIL_FID;
         return Integer.parseInt(String.valueOf(naksatra.fid()) + pada());
     }
 
