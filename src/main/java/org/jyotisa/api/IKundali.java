@@ -14,6 +14,7 @@ import org.jyotisa.api.grahan.IGrahan;
 import org.jyotisa.api.lagna.ILagnas;
 import org.jyotisa.api.panchanga.IPanchanga;
 import org.jyotisa.api.upagraha.IUpagrahas;
+import org.jyotisa.api.bhava.IBhavaChalit;
 import org.jyotisa.api.varga.IAshtakavarga;
 import org.jyotisa.api.varga.IVarga;
 
@@ -44,6 +45,13 @@ public interface IKundali extends IKundaliContext, Serializable {
     IDignity dignity(final IGraha graha);
 
     IAshtakavarga ashtakavarga();
+
+    /**
+     * The Bhava Chalit chart - where each graha falls once the bhavas are the real, unequal arcs
+     * of the sky rather than whole signs. See {@link IBhavaChalit} for the construction and for
+     * why it can disagree with the whole-sign bhava the rest of this chart reports.
+     */
+    IBhavaChalit chalit();
     IGraha chayaGraha(boolean rahu);
     IKundaliFields fields();
     IPanchanga panchanga();
