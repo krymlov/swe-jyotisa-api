@@ -52,7 +52,7 @@ public interface IKundali extends IKundaliContext, Serializable {
      * of the sky rather than whole signs. See {@link IBhavaChalit} for the construction and for
      * why it can disagree with the whole-sign bhava the rest of this chart reports.
      */
-    IBhavaChalit chalit();
+    IBhavaChalit bhavaChalit();
 
     /**
      * The twelve Arudha Padas - the "perceived" image each bhava casts, A1 being the Arudha
