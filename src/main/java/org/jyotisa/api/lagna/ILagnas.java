@@ -58,10 +58,10 @@ public interface ILagnas extends Serializable {
      * individual. Note that Planets placed in Kendra or Kona position from IL give good wealth in their dasas
      * whereas planets in 3,6,8,12th from IL will cause financial problems to an individual
      */
-    ILagna indu();
+    ILagnaEntity indu();
 
-    ILagna sree();
-    ILagna vighati();
-    ILagna varnada();
-    ILagna pranapada();
+    ILagnaEntity sree();
+    ILagnaEntity vighati();
+    ILagnaEntity varnada();
+    ILagnaEntity pranapada();
 }

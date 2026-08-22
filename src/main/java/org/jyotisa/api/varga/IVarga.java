@@ -46,19 +46,29 @@ public interface IVarga extends IKundaliSequence<IVarga> {
      * @return degree in a whole varga chakra. It is a virtual longitude needed to calculate {@link IRasi}
      * and you should not use it as a real longitude
      */
-    default double virtualDegree(double longitudeInD1) {
-        if (1 == fid()) return longitudeInD1;
-        else {
-            longitudeInD1 *= fid();
-            return fix360(longitudeInD1);
-        }
+    default double virtualDegree(final double longitudeInD1) {
+        // the D1 special case this used to carry was a shortcut, not a rule: multiplying by
+        // fid() == 1 is the identity, so the general form already answers it - and, unlike the
+        // shortcut, it normalises
+        return fix360(longitudeInD1 * fid());
     }
 
     /**
-     * @return longitude in a whole varga chakra
+     * @return longitude in a whole varga chakra, always in [0, 360)
+     *
+     * <p>The {@code fid() == 1} shortcut is kept because for D1 the general formula reduces to
+     * {@code fix360(longitudeInD1)} exactly, and taking it directly avoids the intermediate
+     * {@code (rasi - 1) * 30 + degree} addition, which can differ in the last ULP.
+     *
+     * <p><b>It used to return the input verbatim</b>, with no {@code fix360} - making D1 the only
+     * varga of the 23 that could hand back a value outside [0, 360). That is not merely
+     * theoretical: {@code swe_calc} can return a longitude a few ULPs <i>below</i> zero (the
+     * reason {@code IModuloUtils.modulo} carries a tolerance snap at all), and such a value fell
+     * through every band of {@code GrahaXxx.dignity(D1, ...)} and answered {@code null}, while
+     * D2..D144 answered correctly from the same input.
      */
     default double chakraLongitude(final double longitudeInD1) {
-        if (1 == fid()) return longitudeInD1;
+        if (1 == fid()) return fix360(longitudeInD1);
         return fix360(((rasi(longitudeInD1).fid() - 1) * RASI_LENGTH)
                 + rasiLongitude(longitudeInD1));
     }
