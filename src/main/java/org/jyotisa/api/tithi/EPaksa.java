@@ -52,7 +52,26 @@ public enum EPaksa implements IPaksa {
         return this == GAURA;
     }
 
+    /**
+     * The fortnight the Sun-Moon elongation falls in.
+     * <p>
+     * <b>An undetermined longitude is refused, not answered.</b> Without the guard
+     * {@code (int) NaN} is <b>0</b> in Java, so a NaN elongation resolved to tithi 1 and came
+     * back as {@link #GAURA} - a real fortnight, indistinguishable downstream from a computed
+     * one. The six {@code byLongitude} lookups in {@code swe-jyotisa-lib} answer their family's
+     * reserved NIL in that situation; this family declares none - {@code KRSNA} and {@code GAURA}
+     * are the only two fortnights there are, and neither means "unknown" - so it fails loudly
+     * instead, exactly as {@code ISweEnum.nilOrFail} does for {@code EGraha} and {@code ELagna}.
+     *
+     * @throws IllegalArgumentException if either longitude is not a number
+     */
     public static IPaksa byLongitude(final double suryaLongitude, final double chandraLongitude) {
+        if (Double.isNaN(suryaLongitude) || Double.isNaN(chandraLongitude)) {
+            throw new IllegalArgumentException("An undetermined longitude names no paksa"
+                    + " (surya=" + suryaLongitude + ", chandra=" + chandraLongitude + "),"
+                    + " and this family declares no NIL member to answer with");
+        }
+
         double diff = chandraLongitude - suryaLongitude;
         if ( d0 > diff ) diff += d360;
 

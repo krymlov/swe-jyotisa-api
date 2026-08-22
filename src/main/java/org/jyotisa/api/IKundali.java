@@ -14,6 +14,7 @@ import org.jyotisa.api.grahan.IGrahan;
 import org.jyotisa.api.lagna.ILagnas;
 import org.jyotisa.api.panchanga.IPanchanga;
 import org.jyotisa.api.upagraha.IUpagrahas;
+import org.jyotisa.api.varga.IAshtakavarga;
 import org.jyotisa.api.varga.IVarga;
 
 import java.io.Serializable;
@@ -42,6 +43,7 @@ public interface IKundali extends IKundaliContext, Serializable {
     IDignity dignity(final IVarga varga, final IGraha graha);
     IDignity dignity(final IGraha graha);
 
+    IAshtakavarga ashtakavarga();
     IGraha chayaGraha(boolean rahu);
     IKundaliFields fields();
     IPanchanga panchanga();

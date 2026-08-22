@@ -120,6 +120,36 @@ class TithiTest {
         assertTrue(EPaksa.byLongitude(0., 359.).krsna(), "diff=359 -> tithiIdx 30");
     }
 
+    /**
+     * An undetermined longitude must not come back as a real fortnight.
+     * <p>
+     * {@code (int) NaN} is <b>0</b> in Java, so before the guard a NaN elongation resolved to
+     * tithi 1 and answered {@code GAURA} - the same silent-wrong-answer defect the six
+     * {@code byLongitude} lookups in {@code swe-jyotisa-lib} were fixed for on 2026-08-21.
+     * <p>
+     * Those six answer their family's reserved NIL. <b>This family has none by design</b> -
+     * {@code KRSNA} and {@code GAURA} are the only two fortnights there are, and neither means
+     * "unknown" - so the coherent answer is the one {@code ISweEnum.nilOrFail} gives for
+     * {@code EGraha} and {@code ELagna}: refuse, rather than invent a member to return.
+     */
+    @Test
+    void byLongitude_refusesAnUndeterminedLongitudeInsteadOfAnsweringGaura() {
+        assertThrows(IllegalArgumentException.class,
+                () -> EPaksa.byLongitude(Double.NaN, 10.));
+        assertThrows(IllegalArgumentException.class,
+                () -> EPaksa.byLongitude(10., Double.NaN));
+        assertThrows(IllegalArgumentException.class,
+                () -> EPaksa.byLongitude(Double.NaN, Double.NaN));
+    }
+
+    @Test
+    void ePaksa_hasNoReservedMemberAndThatIsDeliberate() {
+        for (EPaksa paksa : EPaksa.values()) {
+            assertFalse(paksa.isNil(), paksa.name() + " is a real fortnight, not a reserved member");
+        }
+        assertEquals(2, EPaksa.values().length, "exactly two fortnights, nothing else");
+    }
+
     @Test
     void byLongitude_wrapsWhenChandraIsBehindSurya() {
         // surya=350, chandra=10 -> diff=-340, wraps to +20 -> tithiIdx 1+floor(20/12)=2 (Gaura)
