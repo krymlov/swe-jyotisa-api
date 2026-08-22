@@ -14,6 +14,7 @@ import org.jyotisa.api.grahan.IGrahan;
 import org.jyotisa.api.lagna.ILagnas;
 import org.jyotisa.api.panchanga.IPanchanga;
 import org.jyotisa.api.upagraha.IUpagrahas;
+import org.jyotisa.api.arudha.IArudhaPadas;
 import org.jyotisa.api.bhava.IBhavaChalit;
 import org.jyotisa.api.varga.IAshtakavarga;
 import org.jyotisa.api.varga.IVarga;
@@ -52,6 +53,12 @@ public interface IKundali extends IKundaliContext, Serializable {
      * why it can disagree with the whole-sign bhava the rest of this chart reports.
      */
     IBhavaChalit chalit();
+
+    /**
+     * The twelve Arudha Padas - the "perceived" image each bhava casts, A1 being the Arudha
+     * Lagna and A12 the Upapada Lagna. See {@link IArudhaPadas} for the rule and its exception.
+     */
+    IArudhaPadas arudhaPadas();
     IGraha chayaGraha(boolean rahu);
     IKundaliFields fields();
     IPanchanga panchanga();
